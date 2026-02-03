@@ -1,10 +1,11 @@
 import os
 from dotenv import load_dotenv
-from langchain_openai import OpenAI
+from langchain_openai import ChatOpenAI
 
-load_dotenv()  # This loads variables from .env
+load_dotenv()
 
-llm = OpenAI(
-    model_name=os.getenv("MODEL_NAME", "gpt-4o-mini"),
+# Initialize the Chat Model
+llm = ChatOpenAI(
+    model=os.getenv("MODEL_NAME", "gpt-4o-mini"),
     temperature=0
 )

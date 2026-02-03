@@ -2,8 +2,14 @@ fastapi
 uvicorn
 langchain
 langgraph
+langchain-openai
 openai
 python-dotenv
 pydantic
 faiss-cpu
 tiktoken
+pdfplumber
+pytesseract
+pillow
+pytest
+python-multipart

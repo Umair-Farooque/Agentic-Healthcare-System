@@ -1,0 +1,157 @@
+[
+  {
+    "timestamp": "2026-02-03T11:48:04.190295Z",
+    "raw_input": "Patient John Doe, 55 years old, complains of chest pain and shortness of breath. Suspected angina. Insurance ID missing.",
+    "structured_data": {
+      "patient_name": "John Doe",
+      "age": 55,
+      "symptoms": [
+        "chest pain",
+        "shortness of breath"
+      ],
+      "diagnosis": "Suspected angina",
+      "missing_info": [
+        "Insurance ID"
+      ]
+    },
+    "validated": false,
+    "issues": [
+      "Missing info: Insurance ID",
+      "Critical symptom detected: chest pain",
+      "Critical symptom detected: shortness of breath",
+      "LLM check: Inconsistencies or Missing Important Info:\n1. Missing Insurance ID\n2. No information on medical history or current medications\n3. No information on allergies\n4. No information on lifestyle factors (e.g., smoking, exercise)\n5. No information on family history of heart disease\n6. No information on vital signs (e.g., blood pressure, heart rate) \n\nOverall, the patient data is incomplete and lacks several important details that are necessary for a comprehensive assessment and treatment plan. It is crucial to gather this information to ensure proper care for the patient."
+    ],
+    "decision": "escalate_to_emergency",
+    "actions": [
+      "escalated_to_emergency"
+    ]
+  },
+  {
+    "timestamp": "2026-02-03T12:41:06.982835Z",
+    "raw_input": "chest pain",
+    "structured_data": {
+      "patient_name": null,
+      "age": null,
+      "symptoms": [
+        "chest pain"
+      ],
+      "diagnosis": null,
+      "missing_info": [
+        "patient name",
+        "age",
+        "detailed symptoms",
+        "medical history",
+        "vital signs"
+      ]
+    },
+    "validated": false,
+    "issues": [],
+    "decision": "proceed_to_scheduling",
+    "actions": [
+      "appointment_scheduled"
+    ]
+  },
+  {
+    "timestamp": "2026-02-03T12:44:15.809278Z",
+    "raw_input": "chest pain",
+    "structured_data": {
+      "patient_name": null,
+      "age": null,
+      "symptoms": [
+        "chest pain"
+      ],
+      "diagnosis": null,
+      "missing_info": [
+        "patient name",
+        "age",
+        "additional symptoms",
+        "medical history",
+        "vital signs"
+      ]
+    },
+    "validated": false,
+    "issues": [],
+    "decision": "proceed_to_scheduling",
+    "actions": [
+      "appointment_scheduled"
+    ]
+  },
+  {
+    "timestamp": "2026-02-03T12:46:36.744097Z",
+    "raw_input": "Patient Umair Farooq, having chest pain, age 25",
+    "structured_data": {
+      "patient_name": "Umair Farooq",
+      "age": 25,
+      "symptoms": [
+        "chest pain"
+      ],
+      "diagnosis": null,
+      "missing_info": []
+    },
+    "validated": false,
+    "issues": [],
+    "decision": "proceed_to_scheduling",
+    "actions": [
+      "appointment_scheduled"
+    ]
+  },
+  {
+    "timestamp": "2026-02-03T12:49:07.638827Z",
+    "raw_input": "Patient Umair Farooq, age 25, having chest pain",
+    "structured_data": {
+      "patient_name": "Umair Farooq",
+      "age": 25,
+      "symptoms": [
+        "chest pain"
+      ],
+      "diagnosis": null,
+      "missing_info": []
+    },
+    "validated": false,
+    "issues": [],
+    "decision": "proceed_to_scheduling",
+    "actions": [
+      "appointment_scheduled"
+    ]
+  },
+  {
+    "timestamp": "2026-02-03T12:51:49.169061Z",
+    "raw_input": "patient Umair Farooq, age 25 having chest pain and concussions",
+    "structured_data": {
+      "patient_name": "Umair Farooq",
+      "age": 25,
+      "symptoms": [
+        "chest pain",
+        "concussions"
+      ],
+      "diagnosis": null,
+      "missing_info": []
+    },
+    "validated": false,
+    "issues": [],
+    "decision": "proceed_to_scheduling",
+    "actions": [
+      "appointment_scheduled"
+    ]
+  },
+  {
+    "timestamp": "2026-02-03T12:54:29.930814Z",
+    "raw_input": "patient Umair Farooq, Age 25 having chest pain and concussions",
+    "structured_data": {
+      "patient_name": "Umair Farooq",
+      "age": 25,
+      "symptoms": [
+        "chest pain",
+        "concussions"
+      ],
+      "diagnosis": null,
+      "missing_info": []
+    },
+    "validated": false,
+    "issues": [],
+    "decision": "proceed_to_scheduling",
+    "actions": [
+      "appointment_scheduled"
+    ]
+  }
+]

@@ -1,41 +1,53 @@
 from app.services.llm import llm
-import json
+
+# Example ICD-10 codes for demonstration
+ICD10_CODES = ["I20", "I21", "J45", "E11"]  
 
 def validation_agent(state: dict):
     """
-    LLM-powered Validation Agent:
-    - Checks structured_data from Intake Agent
-    - Flags missing or inconsistent fields
-    - Returns validated flag and optional issues
+    Validation Agent:
+    - Checks structured data for missing fields and correctness.
+    - Flags critical issues (e.g., high-risk symptoms).
     """
+    data = state.get("structured_data", {})
+    issues = []
 
-    structured = state.get("structured_data", {})
+    # Check basic fields
+    patient_name = data.get("patient_name")
+    age = data.get("age")
+    symptoms = data.get("symptoms", [])
+    diagnosis = data.get("diagnosis", "")
+    missing_info = data.get("missing_info", [])
 
-    prompt = f"""
-You are a healthcare data validator.
+    if not patient_name:
+        issues.append("Patient name missing")
+    if not isinstance(age, int) or age <= 0 or age > 120:
+        issues.append(f"Invalid age: {age}")
+    if not symptoms:
+        issues.append("Symptoms missing")
+    if not diagnosis:
+        issues.append("Diagnosis missing")
+    if missing_info:
+        issues.extend([f"Missing info: {field}" for field in missing_info])
 
-Given the following structured patient data in JSON:
-{json.dumps(structured, indent=2)}
+    # Critical symptom detection (simplified example)
+    high_risk_symptoms = ["chest pain", "shortness of breath", "unconscious"]
+    for symptom in symptoms:
+        if symptom.lower() in high_risk_symptoms:
+            issues.append(f"Critical symptom detected: {symptom}")
 
-Check for the following:
-1. Missing required fields (patient_name, age, symptoms, diagnosis)
-2. Inconsistent values (e.g., age not a number, symptoms not a list)
-3. Any other potential issues
-
-Return ONLY JSON in the format:
-{{
-  "validated": true or false,
-  "issues": ["list of issues found"]
-}}
+    # Optional: use LLM to check consistency / reasoning
+    llm_prompt = f"""
+Validate the patient data and list any inconsistencies or missing important info.
+Patient Data: {data}
 """
+    llm_response = llm.invoke(llm_prompt)
+    # Optionally parse LLM response and append to issues
+    issues.append(f"LLM check: {llm_response}")
 
-    # Call the LLM
-    response = llm.invoke(prompt)
+    validated = len(issues) == 0
 
-    # Parse safely
-    try:
-        result = json.loads(response)
-    except json.JSONDecodeError:
-        result = {"validated": False, "issues": ["Could not parse LLM output", response]}
-
-    return result
+    return {
+        "validated": validated,
+        "issues": issues
+    }

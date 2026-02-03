@@ -1,14 +1,16 @@
+import json
 from datetime import datetime
+import os
+
+AUDIT_LOG_FILE = "audit_logs.json"
 
 def audit_agent(state: dict):
     """
     Audit Agent:
-    Logs all workflow actions and decisions with timestamps.
+    Logs the workflow step with timestamp, state, decisions, and actions.
+    Stores logs in a persistent JSON file.
     """
-
-    audit_log = state.get("audit_log") or []
-
-    entry = {
+    log_entry = {
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "raw_input": state.get("raw_input"),
         "structured_data": state.get("structured_data"),
@@ -18,7 +20,23 @@ def audit_agent(state: dict):
         "actions": state.get("actions", [])
     }
 
-    audit_log.append(entry)
+    # Load existing logs
+    if os.path.exists(AUDIT_LOG_FILE):
+        with open(AUDIT_LOG_FILE, "r") as f:
+            try:
+                audit_logs = json.load(f)
+            except json.JSONDecodeError:
+                audit_logs = []
+    else:
+        audit_logs = []
+
+    # Append new log
+    audit_logs.append(log_entry)
+
+    # Save updated logs
+    with open(AUDIT_LOG_FILE, "w") as f:
+        json.dump(audit_logs, f, indent=2)
 
     print("[Audit Agent] Logging workflow step...")
-    return {"audit_log": audit_log}
+
+    return {"audit_log": audit_logs}
