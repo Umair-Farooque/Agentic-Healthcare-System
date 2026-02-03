@@ -22,7 +22,11 @@ function App() {
 
     try {
       // Use environment variable or fallback to localhost
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      let apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      if (!apiUrl.startsWith('http')) {
+        apiUrl = `https://${apiUrl}`;
+      }
+
       const response = await fetch(`${apiUrl}/invoke`, {
         method: 'POST',
         // Content-Type is set automatically for FormData
