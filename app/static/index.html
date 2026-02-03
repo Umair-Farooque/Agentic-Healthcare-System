@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Healthcare</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="face-card">
+            <header class="header">
+                <h1>Agentic Healthcare</h1>
+                <p class="subtitle">AI-Powered Patient Intake & Analysis</p>
+            </header>
+
+            <form id="intake-form" class="input-section">
+                <textarea id="patient-input" class="main-input" rows="5"
+                    placeholder="Describe patient symptoms (e.g., 'Patient John Doe, 45, reports severe chest pain...')"
+                    required></textarea>
+
+                <div class="file-upload-section">
+                    <input type="file" id="file-input" style="display: none;" accept=".pdf,.png,.jpg,.jpeg">
+                    <button type="button" id="file-trigger-btn" class="secondary-btn">
+                        📎 Attach Report (PDF/Image)
+                    </button>
+                    <button type="button" id="clear-file-btn" class="clear-file-btn hidden">
+                        ✕
+                    </button>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" id="analyze-btn" class="analyze-btn">
+                        Analyze Case
+                    </button>
+                    <div id="loading-indicator" class="loading-text hidden">
+                        Please wait while our agents analyze the data...
+                    </div>
+                </div>
+            </form>
+
+            <div id="error-container" class="error-message hidden"></div>
+
+            <div id="results-container" class="results-container hidden">
+                <div class="result-card intake">
+                    <h3>Intake</h3>
+                    <pre id="result-intake"></pre>
+                </div>
+
+                <div class="result-card validation">
+                    <h3>Validation</h3>
+                    <div id="result-validation-badge" class="status-badge"></div>
+                </div>
+
+                <div class="result-card reasoning">
+                    <h3>Reasoning</h3>
+                    <p id="result-reasoning"></p>
+                </div>
+
+                <div class="result-card action">
+                    <h3>Action</h3>
+                    <ul id="result-actions"></ul>
+                </div>
+
+                <div class="result-card audit">
+                    <h3>Latest Audit</h3>
+                    <pre id="result-audit" class="audit-log"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/script.js"></script>
+</body>
+
+</html>

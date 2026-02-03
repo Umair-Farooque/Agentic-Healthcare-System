@@ -1,5 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
 import shutil
@@ -24,7 +26,14 @@ graph = build_workflow_graph()
 UPLOAD_DIR = "temp_uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+# Mount static files
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 @app.get("/")
+async def read_root():
+    return FileResponse('app/static/index.html')
+
+@app.get("/health")
 def health_check():
     return {"status": "running"}
 
@@ -56,6 +65,6 @@ async def invoke_workflow(
         return result
     finally:
         # Optional: Cleanup file after processing if you want to save space
-        # if file_path and os.path.exists(file_path):
-        #     os.remove(file_path)
-        pass
+         if file_path and os.path.exists(file_path):
+             os.remove(file_path)
+

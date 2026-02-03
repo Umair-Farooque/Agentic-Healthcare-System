@@ -1,7 +1,7 @@
 services:
   # Backend Service (Docker)
   - type: web
-    name: agentic-healthcare-backend
+    name: agentic-healthcare-sys
     env: docker
     plan: free
     dockerContext: .
@@ -10,16 +10,3 @@ services:
         sync: false
       - key: MODEL_NAME
         value: gpt-4o-mini
-
-  # Frontend Service (Static Site)
-  - type: web
-    name: agentic-healthcare-frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/dist
-    envVars:
-      - key: VITE_API_URL
-        fromService:
-          type: web
-          name: agentic-healthcare-backend
-          property: host
